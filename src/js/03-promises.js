@@ -7,8 +7,8 @@ const btn = document.querySelector('button')
 import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 
-formRef.addEventListener('submit', () => { 
-//  e.preventDefault
+formRef.addEventListener('submit', (e) => {
+  e.preventDefault
   let positionNumber = 0
   for (i = 0; i <= inputAmount.value; i += 1){
     positionNumber += 1;

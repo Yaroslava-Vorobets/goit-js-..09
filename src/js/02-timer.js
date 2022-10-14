@@ -16,6 +16,7 @@ const options = {
     onClose(selectedDates) {
     console.log(selectedDates[0]);
       endTime = selectedDates[0].getTime()
+      startBtn.disabled = true
       if (endTime <= Date.now()) {
       startBtn.disabled = true
       Notify.failure("Please choose a date in the future", notifyOptions= {
@@ -26,6 +27,9 @@ const options = {
       return
       }
       startBtn.disabled = false;
+      // if (endTime > Date.now()) {
+      //   startBtn.disabled = false;
+      // }
   },
 };
 flatpickr('#datetime-picker', options)
