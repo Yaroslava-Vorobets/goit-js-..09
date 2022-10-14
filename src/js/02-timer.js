@@ -6,32 +6,32 @@ import { Notify } from 'notiflix/build/notiflix-notify-aio';
 const timerRef = document.querySelector('.timer')
 const input = document.querySelector('#datetime-picker')
 const startBtn = document.querySelector('button[data-start]')
+
 const selectedDates = []
  let endTime = null;
-const options = {
+const options = {  
     enableTime: true,
     time_24hr: true,
     defaultDate: new Date(),
     minuteIncrement: 1,
-    onClose(selectedDates) {
+  onClose(selectedDates) {
     console.log(selectedDates[0]);
-      endTime = selectedDates[0].getTime()
+    endTime = selectedDates[0].getTime()
+    if (endTime <= Date.now()) {
       startBtn.disabled = true
-      if (endTime <= Date.now()) {
-      startBtn.disabled = true
-      Notify.failure("Please choose a date in the future", notifyOptions= {
+      Notify.failure("Please choose a date in the future", (notifyOptions = {
         width: 200,
         clickToClose: true,
         backOverlay: true
-      }, );
-      return
-      }
-      startBtn.disabled = false;
-      // if (endTime > Date.now()) {
-      //   startBtn.disabled = false;
-      // }
-  },
-};
+      }))
+    } else if (endTime > Date.now()) {
+      startBtn.disabled = false     
+    }           
+  }   
+  }
+  startBtn.disabled = true
+ 
+
 flatpickr('#datetime-picker', options)
 const timer = {
   intervald: null,
@@ -53,6 +53,7 @@ const timer = {
       this.refs.timerhours.textContent = addLeadinZero(hours);
       this.refs.timerminutes.textContent = addLeadinZero(minutes);
       this.refs.timerseconds.textContent = addLeadinZero(seconds);
+      startBtn.disabled = true
       }
    },1000)
   },
